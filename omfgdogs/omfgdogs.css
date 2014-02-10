@@ -1,0 +1,25 @@
+p{
+	text-align: center;
+	font-size: 45px;
+}
+
+a{
+	
+	color: orange;
+	position: absolute;
+	right:0px;
+	bottom: 0px;
+}
+
+@media all and (min-width: 992px){
+
+	body{
+		background-image: url(omfgdogs.gif);
+		background-color: #e6e6e6;
+		background-repeat: repeat;
+	}
+	p{
+		font-size: 0px;
+	}
+}
+
