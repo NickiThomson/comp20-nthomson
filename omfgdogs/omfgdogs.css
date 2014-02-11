@@ -6,6 +6,7 @@ p{
 a{
 	
 	color: orange;
+	font-size: 30px;
 	position: absolute;
 	right:0px;
 	bottom: 0px;
@@ -20,6 +21,9 @@ a{
 	}
 	p{
 		font-size: 0px;
+	}
+	a {
+		color: white;
 	}
 }
 
