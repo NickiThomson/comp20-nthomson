@@ -5,7 +5,7 @@ Aspects of the work which have been implemented correctly:
 draw() draws all required items on canvas
 
 Aspects of the work which have not been implemented correctly:
-Not very many commits
+Commits can't be seen because of repository problems
 
 This project was discussed in detail with:
 Rebecca Howarth
