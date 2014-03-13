@@ -15,6 +15,7 @@
 			var linecolor;
 			var stations;
 			var stationsData = new XMLHttpRequest();
+			var pathCoords = new Array();
 
 			function init()
 			{
@@ -24,8 +25,6 @@
 				request.send(null);
 				request.onreadystatechange = callback;
 				//stations = JSON.parse(request.responseText);
-
-				getMyLocation();
 			}
 
 			function getMyLocation()
@@ -129,6 +128,7 @@
         		{
            			str = request.responseText;
            			stations = JSON.parse(str);
+           			getMyLocation();
 //            		linecolor = data["line"];  
        			 }
    			 }
@@ -154,12 +154,28 @@
    			 	linecolor = tstopsData['line'];
 
    			 	for (var i=0; i<stations[linecolor].length; i++){
-   			 		var mark = new google.maps.LatLng(stations[linecolor][i]['lat'], stations[linecolor][i]['long']);
-   			 		
+   			 		var mLat = stations[linecolor][i]['lat'];
+   			 		var mLong = stations[linecolor][i]['long'];
+   			 		var mark = new google.maps.LatLng(mLat, mLong);
+   			 		var iconcolor;
+   			 		if (linecolor=='red'){
+   			 			iconcolor = 'star.png';
+   			 		} else if (linecolor == 'blue'){
+   			 			iconcolor = 'starblue.png';
+   			 		} else if (linecolor =='orange'){
+   			 			iconcolor = 'starorange.png';
+   			 		}
+
+   			 		pathCoords[i] = new google.maps.LatLng(mLat, mLong);
+
    			 		marker = new google.maps.Marker({
 					position: mark,
-					title: stations[linecolor][i]['stop']
+					title: stations[linecolor][i]['stop'],
+				
+					icon:iconcolor
+
 				});
+   			 		console.log(linecolor);
 				marker.setMap(map);
 
 	   			 	google.maps.event.addListener(mark, 'click', function() {
@@ -168,8 +184,52 @@
 						infowindow.open(map, this);
 					});
 				}
+				createPolyLine();
 			}
 
+			function createPolyLine(){
+				/*var pathCoords;
+				for (var i=0; i<stations[linecolor].length; i++){
+					pathCoords.push(stations[linecolor].getPosition);
+				}*/
+				console.log('in polyline bro');
+
+
+					if (linecolor == 'red'){
+						color = '#DF0101';
+					} else if (linecolor == 'blue'){
+						color = '#0000FF';
+					} else {
+						color = '#FE9A2E';
+					}
+				var Path = new google.maps.Polyline({
+					path: pathCoords,
+					geodesic: true,
+					strokeColor: color,
+					strokeOpacity: 1,
+					strokeWeight: 2
+				});
+
+				Path.setMap(map);
+			}
+
+
+/*var flightPlanCoordinates = [
+    new google.maps.LatLng(37.772323, -122.214897),
+    new google.maps.LatLng(21.291982, -157.821856),
+    new google.maps.LatLng(-18.142599, 178.431),
+    new google.maps.LatLng(-27.46758, 153.027892)
+  ];
+  var flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+  flightPath.setMap(map);
+}*/
 
  
 
