@@ -1,0 +1,67 @@
+{
+
+"blue":
+[
+	{"stop":"Wonderland","lat":"42.41342","long":"-70.991648"},
+	{"stop":"Revere Beach","lat":"42.40784254","long":"-70.99253321"},
+	{"stop":"Beachmont","lat":"42.39754234","long":"-70.99231944"},
+	{"stop":"Suffolk Downs","lat":"42.39050067","long":"-70.99712259"},
+	{"stop":"Orient Heights","lat":"42.386867","long":"-71.004736"},
+	{"stop":"Wood Island","lat":"42.3796403","long":"-71.02286539"},
+	{"stop":"Airport","lat":"42.374262","long":"-71.030395"},
+	{"stop":"Maverick","lat":"42.36911856","long":"-71.03952958"},
+	{"stop":"Aquarium","lat":"42.359784","long":"-71.051652"},
+	{"stop":"State Street","lat":"42.358978","long":"-71.057598"},
+	{"stop":"Government Center","lat":"42.359705","long":"-71.059215"},
+	{"stop":"Bowdoin","lat":"42.361365","long":"-71.062037"}
+],
+
+"orange":
+[
+	{"stop":"Oak Grove","lat":"42.43668","long":"-71.071097"},
+	{"stop":"Malden Center","lat":"42.426632","long":"-71.07411"},
+	{"stop":"Wellington","lat":"42.40237","long":"-71.077082"},
+	{"stop":"Sullivan","lat":"42.383975","long":"-71.076994"},
+	{"stop":"Community College","lat":"42.373622","long":"-71.069533"},
+	{"stop":"North Station","lat":"42.365577","long":"-71.06129"},
+	{"stop":"Haymarket","lat":"42.363021","long":"-71.05829"},
+	{"stop":"State Street","lat":"42.358978","long":"-71.057598"},
+	{"stop":"Downtown Crossing","lat":"42.355518","long":"-71.060225"},
+	{"stop":"Chinatown","lat":"42.352547","long":"-71.062752"},
+	{"stop":"Tufts Medical","lat":"42.349662","long":"-71.063917"},
+	{"stop":"Back Bay","lat":"42.34735","long":"-71.075727"},
+	{"stop":"Mass Ave","lat":"42.341512","long":"-71.083423"},
+	{"stop":"Ruggles","lat":"42.336377","long":"-71.088961"},
+	{"stop":"Roxbury Crossing","lat":"42.331397","long":"-71.095451"},
+	{"stop":"Jackson Square","lat":"42.323132","long":"-71.099592"},
+	{"stop":"Stony Brook","lat":"42.317062","long":"-71.104248"},
+	{"stop":"Green Street","lat":"42.310525","long":"-71.107414"},
+	{"stop":"Forest Hills","lat":"42.300523","long":"-71.113686"}
+],
+
+"red":
+[
+	{"stop":"Alewife","lat":"42.395428","long":"-71.142483"},
+	{"stop":"Davis","lat":"42.39674","long":"-71.121815"},
+	{"stop":"Porter Square","lat":"42.3884","long":"-71.119149"},
+	{"stop":"Harvard Square","lat":"42.373362","long":"-71.118956"},
+	{"stop":"Central Square","lat":"42.365486","long":"-71.103802"},
+	{"stop":"Kendall/MIT","lat":"42.36249079","long":"-71.08617653"},
+	{"stop":"Charles/MGH","lat":"42.361166","long":"-71.070628"},
+	{"stop":"Park Street","lat":"42.35639457","long":"-71.0624242"},
+	{"stop":"Downtown Crossing","lat":"42.355518","long":"-71.060225"},
+	{"stop":"South Station","lat":"42.352271","long":"-71.055242"},
+	{"stop":"Broadway","lat":"42.342622","long":"-71.056967"},
+	{"stop":"Andrew","lat":"42.330154","long":"-71.057655"},
+	{"stop":"JFK/UMass","lat":"42.320685","long":"-71.052391"},
+	{"stop":"North Quincy","lat":"42.275275","long":"-71.029583"},
+	{"stop":"Wollaston","lat":"42.2665139","long":"-71.0203369"},
+	{"stop":"Quincy Center","lat":"42.251809","long":"-71.005409"},
+	{"stop":"Quincy Adams","lat":"42.233391","long":"-71.007153"},
+	{"stop":"Braintree","lat":"42.2078543","long":"-71.0011385"},
+	{"stop":"Savin Hill","lat":"42.31129","long":"-71.053331"},
+	{"stop":"Fields Corner","lat":"42.300093","long":"-71.061667"},
+	{"stop":"Shawmut","lat":"42.29312583","long":"-71.06573796"},
+	{"stop":"Ashmont","lat":"42.284652","long":"-71.064489"}
+]
+}
