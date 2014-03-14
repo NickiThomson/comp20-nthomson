@@ -159,14 +159,14 @@
    			 		var mLong = stations[linecolor][i]['long'];
    			 		var mark = new google.maps.LatLng(mLat, mLong);
    			 		var iconcolor;
-   			 		if (linecolor=='red'){
+   			 		/*if (linecolor=='red'){
    			 			iconcolor = 'star.png';
    			 		} else if (linecolor == 'blue'){
    			 			iconcolor = 'starblue.png';
    			 		} else if (linecolor =='orange'){
    			 			iconcolor = 'starorange.png';
-   			 		}
-
+   			 		}*/
+   			 		iconcolor = 'starorange.png'
    			 		if (i< 18 || linecolor != 'red'){
    			 			pathCoords[i] = new google.maps.LatLng(mLat, mLong);
    			 		/*} else if (i<18){
@@ -183,17 +183,17 @@
 					position: mark,
 					title: stations[linecolor][i]['stop'],
 				
-					//icon:iconcolor
+					//icon: iconcolor
 
 				});
    			 		console.log(linecolor);
 				marker.setMap(map);
 
-	   			 	google.maps.event.addListener(mark, 'click', function() {
+	   			 /*	google.maps.event.addListener(mark, 'click', function() {
 						infowindow.close();
 						infowindow.setContent(stations[linecolor][i]['stop']);
 						infowindow.open(map, this);
-					});
+					});*/
 				}
 				createPolyLine(pathCoords);
 				if (linecolor == 'red'){
@@ -202,10 +202,7 @@
 			}
 
 			function createPolyLine(pcoords){
-				/*var pathCoords;
-				for (var i=0; i<stations[linecolor].length; i++){
-					pathCoords.push(stations[linecolor].getPosition);
-				}*/
+
 				console.log('in polyline bro');
 
 
@@ -227,23 +224,14 @@
 				Path.setMap(map);
 			}
 
+			function addInfoTo(stop){
 
-/*var flightPlanCoordinates = [
-    new google.maps.LatLng(37.772323, -122.214897),
-    new google.maps.LatLng(21.291982, -157.821856),
-    new google.maps.LatLng(-18.142599, 178.431),
-    new google.maps.LatLng(-27.46758, 153.027892)
-  ];
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
+			}
 
-  flightPath.setMap(map);
-}*/
+			function findClosestStation(){
+
+			}
+
 
  
 
