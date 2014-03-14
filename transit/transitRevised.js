@@ -21,6 +21,7 @@ var pathCoords = new Array();
 var pathCoords2 = new Array();
 var infowindows = new Array();
 
+
 function init()
 {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -41,7 +42,7 @@ function getMyLocation()
 		});
 	}
 	else {
-		alert("Geolocation is not supported by your web browser.  What a shame!");
+		alert("Geolocation is not supported by your web browser.");
 	}
 }
 
@@ -133,20 +134,9 @@ function markStops(){
 	console.log(linecolor);
 	markers[i].setMap(map);
 	infowindows[i] = new google.maps.InfoWindow();
-	infowindows[i].setContent(stations[linecolor][i]['stop']);
-
+	//infowindows[i].setContent(stations[linecolor][i]['stop']);
+	infowindows[i].setContent(infoWindowContent(i));
 		 google.maps.event.addListener(markers[i], 'click', makeMapListener(infowindows[i], markers[i]));
-
-		 	/*function(i) {
-			//infowindow.close();
-			//infowindow.setPosition(markers[i].position);
-			//infowindow.setContent(stations[linecolor][0]['stop']);
-			return function(){
-				console.log('in addListener function');
-				infowindows[i].setContent("You found a station!");
-				infowindows[i].open(map, markers[i]);
-			}
-		});*/
 	}
 	createPolyLine(pathCoords);
 	if (linecolor == 'red'){
@@ -187,3 +177,25 @@ function makeMapListener(window, m) {
   };
 }
 
+function infoWindowContent(i){
+	var content = 
+	"<h2>" + stations[linecolor][i]['stop'] + "</h2>";
+/*	'<table>'+
+	'<tr>' +
+	'<th> '*/
+	return content;
+}
+
+/* <tr>
+<td>Thursday, January 16th</td>
+<td><a href="lecture_notes/intro.html">Course Introduction</a></td>
+<td><a href="https://docs.google.com/forms/d/1aZ_RzCMzez6NjFzkq9rWtf1honfRPDeGU2WC-XOOYlU/viewform" target="_blank">Lab 1: Course Roster</a></td>
+</tr>
+
+<tr>
+<td>Tuesday, January 21st</td>
+<td><a href="lecture_notes/http.html">Hypertext Transport Protocol (HTTP)</a></td>
+<td><a href="https://docs.google.com/forms/d/1z7x0lbIhNNf2MOQujYq5Vi4xfrGW03aSGDGqfNBYsMM/viewform" target="_blank">Lab 2: HTTP and Developer Tools</a></td>
+</tr> */
+
+//function 
