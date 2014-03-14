@@ -44,6 +44,7 @@ function getMyLocation()
 	else {
 		alert("Geolocation is not supported by your web browser.");
 	}
+
 }
 
 function renderMap()
@@ -99,12 +100,12 @@ function callback()
 
 function markStops(){
 	linecolor = tstopsData['line'];
-
-	for (var i=0; i<stations[linecolor].length; i++){
+	var size = stations[linecolor].length;
+	for (var i=0; i<size; i++){
 		var mLat = stations[linecolor][i]['lat'];
 		var mLong = stations[linecolor][i]['long'];
 		var mark = new google.maps.LatLng(mLat, mLong);
-		var iconcolor;
+		var iconcolor = 't.jpg';
 		/*if (linecolor=='red'){
 			iconcolor = 'star.png';
 		} else if (linecolor == 'blue'){
@@ -112,7 +113,7 @@ function markStops(){
 		} else if (linecolor =='orange'){
 			iconcolor = 'starorange.png';
 		}*/
-		iconcolor = 'starorange.png'
+		//iconcolor = 'starorange.png'
 		if (i< 18 || linecolor != 'red'){
 			pathCoords[i] = new google.maps.LatLng(mLat, mLong);
 		}
@@ -122,14 +123,15 @@ function markStops(){
 		if (i>= 18 && linecolor == 'red'){
 			pathCoords2[i-17] = new google.maps.LatLng(mLat, mLong);
 		}
-
+	//console.log('gonna make some markers');
 	markers[i] = new google.maps.Marker({
 		position: mark,
 		title: stations[linecolor][i]['stop'],
 
-		//icon: iconcolor
+		icon: iconcolor
 
 	});
+	//console.log('dat marker should be made bitch!');
 
 	console.log(linecolor);
 	markers[i].setMap(map);
@@ -142,6 +144,7 @@ function markStops(){
 	if (linecolor == 'red'){
 		createPolyLine(pathCoords2);
 	}
+	findClosestStation();
 }
 
 function createPolyLine(pcoords){
@@ -198,4 +201,38 @@ function infoWindowContent(i){
 <td><a href="https://docs.google.com/forms/d/1z7x0lbIhNNf2MOQujYq5Vi4xfrGW03aSGDGqfNBYsMM/viewform" target="_blank">Lab 2: HTTP and Developer Tools</a></td>
 </tr> */
 
-//function 
+function findClosestStation(){
+	var distance;
+	var minDistance; 
+	var minI = 0;
+	var size = stations[linecolor].length;
+
+	minDistance = google.maps.geometry.spherical.computeDistanceBetween (meMarker.position, markers[minI].position);
+	
+	for (var i=1; i<size; i++){
+		distance = google.maps.geometry.spherical.computeDistanceBetween (meMarker.position, markers[i].position);
+		if (distance < minDistance){
+			minDistance = distance;
+			minI = i;
+		}
+	}
+	/*distance = convertMetersToMiles(distance);
+	console.log(distance);*/
+	var here2there = new google.maps.Polyline({
+		path: [meMarker.position, markers[minI].position],
+		geodesic: true,
+		strokeOpacity: 1,
+		strokeWeight: 2
+	});
+	here2there.setMap(map);
+
+
+	return minI;
+
+
+}
+
+function convertMetersToMiles(d){
+	d = d * 0.000621371192;
+	return d;
+}
