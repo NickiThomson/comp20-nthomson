@@ -29,7 +29,6 @@ function init()
 	request.open("get", "latlang.json", true);
 	request.send(null);
 	request.onreadystatechange = callback;
-	//stations = JSON.parse(request.responseText);
 }
 
 function getMyLocation()
@@ -60,12 +59,6 @@ function renderMap()
 		title: "Here I Am!"
 	});
 	meMarker.setMap(map);
-	// Open info window on click of marker
-/*	google.maps.event.addListener(meMarker, 'click', function() {
-		infowindow.setContent(meMarker.title);
-		infowindow.open(map, meMarker);
-	});*/
-	console.log('Next is get T info');
 	
 	request.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true);
 	request.send(null);
@@ -75,7 +68,7 @@ function renderMap()
 
 function callback() 
 {
-	console.log("In callback");
+	//console.log("In callback");
 	if (request.readyState == 4 && request.status == 200) 
 	{
 		str = request.responseText;
@@ -85,7 +78,7 @@ function callback()
 }
 
  function dataReady(){
- 	console.log(request.readyState, request.status);
+ 	//console.log(request.readyState, request.status);
  	if (request.readyState == 4 && request.status == 200) 
 	{
 		tstopsData = JSON.parse(request.responseText);
@@ -93,7 +86,7 @@ function callback()
 
 
 	 } else if (request.readyState == 4 && request.status == 500){
-	 	console.log("ERROR-Y Stuff!");
+	 	//console.log("ERROR-Y Stuff!");
 	 	errorSoDone();
 	 }
 
@@ -127,7 +120,7 @@ function markStops(){
 	});
 	//console.log('dat marker should be made bitch!');
 
-	console.log(linecolor);
+	//console.log(linecolor);
 	markers[i].setMap(map);
 	infowindows[i] = new google.maps.InfoWindow();
 	//infowindows[i].setContent(stations[linecolor][i]['stop']);
@@ -143,7 +136,7 @@ function markStops(){
 
 function createPolyLine(pcoords){
 
-	console.log('in polyline bro');
+	//console.log('in polyline bro');
 
 
 		if (linecolor == 'red'){
@@ -176,6 +169,8 @@ function makeMapListener(window, m) {
 }
 
 function infoWindowContent(i){
+	//var table = createStationTable(i);
+
 	var content = 
 	"<h2>" + stations[linecolor][i]['stop'] + "</h2>";
 /*	'<table>'+
@@ -230,6 +225,27 @@ function findClosestStation(){
 function convertMetersToMiles(d){
 	d = d * 0.000621371192;
 	return d;
+}
+
+function createStationTable(i){
+	var size = tstopsData["schedule"].length;
+	table = new Array;
+	stopOfInterest = markers[i].title;
+	var count = 0;
+	for(var j=0; j<size; j++){
+		destination = tstopsData["schedule"][i];
+
+		stops = destination["Predictions"];
+		for (k=0; k<stops.length; k++){
+			if (stops[k] == stopOfInterest){
+				table[count]['Seconds'] = stops[k]['Seconds'];
+				table[count]['Destination'] = stops[k]['Destionation'];
+				count++;
+			}
+		}
+	}
+	//console.log(table);
+	return table;
 }
 
 function errorSoDone(){
