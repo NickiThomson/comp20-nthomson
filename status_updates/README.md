@@ -1,10 +1,10 @@
 status_updates
 ==============
 Aspects not implemented correctly:
-Status updates come out in wrong order
+Currently no working Heroku app
 
 Project discussed with 
 Rebecca Howarth
 
-Time spent on thie project:
-2+ hours
+Time spent on this project:
+4+ hours
