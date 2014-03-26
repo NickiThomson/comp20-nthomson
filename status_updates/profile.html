@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Fecesbook</title>
+
+<script>
+	function print_status(){
+
+		var message = document.getElementById("msg").value;
+
+		var today = new Date();
+
+		var status2store = (today.getMonth()+1) + "/" + (today.getDate()+1) 
+		+ "/" + (today.getFullYear()) + " " + (today.getHours()) + ":" +
+		(today.getMinutes()) + " " + message;
+
+		localStorage[new Date().getTime()]	= status2store;	
+		//localStorage.setItem('update', status2store);
+
+	/*	status = document.getElementById("status");
+
+		output = "";
+
+		for (key in localStorage){
+			output = "<p>" + localStorage[key] + "</p>\n" + output;
+		}
+		status.innerHTML = output;*/
+		output_stuff();
+
+		}
+
+	function output_stuff(){
+		var status = document.getElementById("status");
+
+		output = "";
+
+		for (key in localStorage){
+			output = "<p>" + localStorage[key] + "</p>\n" + output;
+		}
+		status.innerHTML = output;
+
+	}
+</script>
+<!-- <link rel="stylesheet" href="styling.css" /> -->
+
+</head>
+
+<body onload = "output_stuff()">
+	<h1>Fecebook</h1>
+	<div id="nav">
+		<ul>
+			<li id="home">Home</li>
+			<li id="groups">Groups</li>
+			<li id="profile">Profile</li>
+			<li id="contacts">Contacts</li>
+			<li id="inbox">Inbox</li>
+			<li id="applications">Applications</li>
+		</ul>
+	</div>
+	<h2 id="fullname">Barney Gumble</h2>
+	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange = "print_status()"/></h3>
+
+	<h3>Updates</h3>
+	<div id="status">
+
+	</div>
+	<div id="yesterday">
+		<h3>Updates from yesterday:</h3>
+		<ul>
+			<li>Alice is now connected to Bob</li>
+			<li>Tom recommends Jerry</li>
+			<li>Harry just returned from a trip from Curaco</li>
+		</ul>
+	</div>
+	<div id="longlongtimeago">
+		<h3>Updates from long long time ago:</h3>
+		<ul>
+			<li>Harry just returned from a trip from Curaco</li>
+			<li>Joan is now connected to Mary</li>
+			<li>Steven is now connected to James</li>
+		</ul>
+	</div>
+</body>
+</html>
