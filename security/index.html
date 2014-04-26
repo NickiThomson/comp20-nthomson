@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title> Security </title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styling.css" />
+</head>
+
+<body>
+<h1> Security Assement of 2048 Game Center</h1>
+<h3> By Nicki Thomson </h3> 
+
+<h2> Introduction </h2>
+
+<p> This is a report on the security assement of the 2048 gamecenter at <a href= "http://still-ridge-1681.herokuapp.com/">this address</a>. The purpose of the game center is to hold the scores of anyone who plays an altered version of the game 2048. (The game is altered because the scores need to be sent to the game center.) My job was to find security problems in the program and suggest ways these can be fixed. </p>
+
+<h2> Methodology </h2>
+<p> When approaching this problem I started from weaknesses which could be exploited without any fancy web browser add-ons. The one tool I did use (as running from a webpage would overload and crash) was curl, in order to send responses from my local machine </p>
+
+<h2> Abstract of Findings </h2>
+<p> The the problems found all come from when data is sent to the website. The code of the game center needs to be altered, so that: </p>
+<ol> 
+	<li> The gamecenter only accepts data coming from the altered 2048 game, no where else </li>
+	<li> The gamecenter does add data to the database if a script tag is present anywhere </li>
+	<li> The database deletes oldest scores when it starts to get full </li>
+</ol> 
+<p> Otherwise fake scores and additional code can be added to alter the website. </p>
+
+<h2> Issues found </h2>
+
+<h3> Issue #1 - Cross Origin Resource Allows Any Website to post </h3>
+<p> Location: /submit.json </p>
+<p> Severity of issue: medium </p>
+<p> Considering the point of this website is to keep track of high scores, it completely defeats the purpose, to have the ability to insert fake highscores, such as my score of 2048204820482048. </p>
+<p> Description: Having worked on a similar program myself I started with the assumption that the post and get functions operated the same way. Using this I simply used a post command as follows on an html file I was running from my computer.</p>
+<p id = "code"> $.post("http://still-ridge-1681.herokuapp.com/submit.json", {username: username, score: scores2send, grid: grid2send } ); </p>
+<p> where username, scores2send, and grid were whatever I wanted them to be. </p>
+<p> Proof of vulnerability: </p>
+<p id = "caption"> Example of fake score submited  </p>
+<p>
+  <img src="DatabaseInsertion.png" alt ="Database insertion"> </p>
+</p>
+
+<p> Resolution: Here code needs to be added to verify the source which the game center accepts data from. Most likely the following needs to be changed: </p>
+<p id="code"> header ('Access-Control-Allow-Origin: *');
+</p>
+<p> This needs to be changed to a proper validation using the withCredintial property on XMLHttpRequest </p>
+
+
+<h3> Issue #2 - Database, script insertion </h3>
+<p> Location: /submit.json </p>
+<p> Severity of issue: high </p>
+<p> Here the website can be changed to something completely different, including the addition of malicious code </p>
+<p>Description: Again taking advantage of the ability to send anything to this website, JavaScript within an htlm script tag can be sent to the database, and when the website loads, this script will execute. This however would not be resolved by resolving the above issue, as users can still enter a script tag for their username from the altered version of 2048 that is accepted. The code used was as follows: </p>
+<p id = "code"> $.post("http://still-ridge-1681.herokuapp.com/submit.json", {username: "&#60script&#62 alert('Nicki was here!') &#60/script&#62" , score: scores2send, grid: grid2send } ); </p>
+<p> where scores2send, and grid were whatever I wanted them to be and were not really relevant</p>
+<p> Proof of vulnerability:  <img src="ScriptInsertion.png" alt ="Script insertion"> </p>
+<p> Resolution: to resolve this, code needs to be added to the post function. Assuming the username has been obtained, the following should be added </p>
+<p id = "code">
+	if (username.indexOf("&#60script&#62") > -1){ </br>
+		username = HACKER_SUCH_SHAME; </br>
+}
+</p>
+
+<h3> Issue #3 - Overload database </h3>
+<p> Location: /submit.json </p>
+<p> Severity: high </p>
+<p> This has brought the entire website down, redering it useless until the database is cleared </p>
+<p> Description: Here I took advantage of the limited database space and sent a lot of scores from my local machine as seen below: </p>
+<p> <img src="SendingLotsOfScores.png" alt ="Sending Lots of Scores"> </p>
+<p> This caused the database to fill creating an application error whenever the site is accessed. </p>
+<p> Location: /submit.json </p>
+<p> Severity of issue: high </p>
+
+<p> Proof of vulnerability:  <img src="ApplicationError.png" alt ="Application Error"> </p>
+<p> Resolution: Here the database needs to be limited so that once it is close to full it deletes old scores, this will prevent the site from crashing </p>
+
+
+<h2> Conclusion </h2> 
+<p> This is only the very beggining of the weaknesses in this website. To further expand I would use browser add-ons to exploit more weaknesses in the game center which may be less obvious. </p>
+</body>
+
+</html>
